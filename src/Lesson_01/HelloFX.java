@@ -27,6 +27,10 @@ public class HelloFX extends Application {
 
     }
 
+    /**
+     * @param stage Stage.
+     * @throws Exception Exception.
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -37,7 +41,7 @@ public class HelloFX extends Application {
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(button);
 
-        Scene scene = new Scene(stackPane,500,500);
+        Scene scene = new Scene(stackPane, 500, 500);
         stage.setScene(scene);
         stage.show();
 
