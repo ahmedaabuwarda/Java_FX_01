@@ -39,6 +39,7 @@ public class PrintFromButton extends Application implements EventHandler<ActionE
         stage.setTitle("Hello everyone!");
         button = new Button();
         button.setText("Hello everyone!");
+        button.setOnAction(this);
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(button);
@@ -55,5 +56,12 @@ public class PrintFromButton extends Application implements EventHandler<ActionE
     @Override
     public void handle(ActionEvent actionEvent) {
 
+        if (actionEvent.getSource() == button) {
+
+            System.out.println("Oh, you clicked me!");
+
+        }
+
     }
+
 }
