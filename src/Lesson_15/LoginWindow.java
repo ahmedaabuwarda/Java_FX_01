@@ -6,13 +6,12 @@
 package Lesson_15;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 
@@ -22,6 +21,7 @@ import javafx.stage.Stage;
 public class LoginWindow extends Application {
 
     private Stage window;
+    private ListView<String> listView;
 
     /**
      * @param args the command line here.
@@ -33,6 +33,9 @@ public class LoginWindow extends Application {
 
     }
 
+    /**
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
 
@@ -58,28 +61,37 @@ public class LoginWindow extends Application {
         passInput.setPromptText("Password");
         GridPane.setConstraints(passInput, 1, 1);
 
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("Remember Me", "Don not Remember Me");
-        comboBox.setValue("What is your status?");
-        comboBox.setEditable(true);
-        GridPane.setConstraints(comboBox, 1, 2);
-        comboBox.setOnAction(e -> {
-            System.out.println(comboBox.getValue());
-        });
+        listView = new ListView<>();
+        GridPane.setConstraints(listView, 1, 2);
+        listView.getItems().addAll("Remember Me", "Don not Remember Me");
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        Button add = new Button("Add Selected");
+        //GridPane.setConstraints(add, 1, 3);
+        add.setOnAction(e -> getSelectedItems());
 
         Button login = new Button("Login");
-        GridPane.setConstraints(login, 1, 3);
+        //GridPane.setConstraints(login, 1, 3);
 
-        gridPane.getChildren().addAll(userLabel, userInput, passLabel, passInput, comboBox, login);
+        HBox hBox = new HBox();
+        GridPane.setConstraints(hBox, 1, 3);
+        hBox.getChildren().addAll(login, add);
 
-        login.setOnAction(e -> System.out.println(isInt(userInput, passInput) + " " + comboBox.getValue()));
+        gridPane.getChildren().addAll(userLabel, userInput, passLabel, passInput, listView, hBox/*add, login*/);
 
-        Scene scene = new Scene(gridPane, 300, 250);
+        login.setOnAction(e -> System.out.println(isInt(userInput, passInput)));
+
+        Scene scene = new Scene(gridPane, 500, 500);
         window.setScene(scene);
         window.show();
 
     }
 
+    /**
+     * @param userInput user name
+     * @param passInput user password
+     * @return true or false
+     */
     private boolean isInt(TextField userInput, TextField passInput) {
         if (userInput.getText().equals("aa") && passInput.getText().equals("aa")) {
             return true;
@@ -87,4 +99,16 @@ public class LoginWindow extends Application {
             return false;
         }
     }
+
+    private void getSelectedItems() {
+        String message = "";
+        ObservableList<String> observableList = listView.getSelectionModel().getSelectedItems();
+//        observableList = ;
+
+        for (String m : observableList) {
+            message += m + "\n";
+        }
+        System.out.printf(message);
+    }
+
 }
