@@ -56,7 +56,6 @@ public class LoginComboBox extends Application {
         GridPane.setConstraints(passInput, 1, 1);
 
         ComboBox<String> comboBox = new ComboBox<>();
-        //ChoiceBox<String> choiceBox = new ChoiceBox<>();
         comboBox.getItems().addAll("Remember Me", "Don not Remember Me");
         comboBox.setValue("What is your status?");
         comboBox.setEditable(true);
